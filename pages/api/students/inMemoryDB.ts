@@ -1,3 +1,5 @@
 import studentsData from "../../../public/data.json";
 
-export let studentsDB = studentsData;
+export let studentsDB = JSON.parse(
+  JSON.stringify(studentsData)
+) as typeof studentsData;
