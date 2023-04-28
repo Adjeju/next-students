@@ -28,9 +28,9 @@ export const getStudents = async ({
   direction?: string;
 }) => {
   const resp = await fetch(
-    `${process.env["HOST"]}/api/students?limit=${limit}&page=${page}&sort=${
-      sort ?? ""
-    }&direction=${direction ?? ""}`
+    `/api/students?limit=${limit}&page=${page}&sort=${sort ?? ""}&direction=${
+      direction ?? ""
+    }`
   );
 
   return resp.json() as Promise<GetStudentsResponse>;
@@ -43,7 +43,7 @@ export const editStudent = async ({
   id: string;
   progress: number;
 }) => {
-  const resp = await fetch(`${process.env["HOST"]}/api/students/${id}`, {
+  const resp = await fetch(`/api/students/${id}`, {
     method: "PUT",
     body: JSON.stringify({ progress }),
   });
