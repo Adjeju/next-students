@@ -19,8 +19,11 @@ export default async function handler(
   const { limit = 15, page = 1, sort, direction } = req.query;
   const totalCount = data.length;
   const prevDataNum = (+page - 1) * +limit;
+
+  const copy = [...data];
+
   if (sort && direction) {
-    data.sort((a, b) => {
+    copy.sort((a, b) => {
       const coef = direction === "descending" ? -1 : 1;
       return coef * (a[sort] > b[sort] ? 1 : -1);
     });
@@ -28,5 +31,5 @@ export default async function handler(
 
   res
     .status(200)
-    .json({ students: data.slice(prevDataNum, +limit * +page), totalCount });
+    .json({ students: copy.slice(prevDataNum, +limit * +page), totalCount });
 }

@@ -43,11 +43,10 @@ const StundentsTable = () => {
   const {
     students,
     totalCount,
-    sortDescriptor,
-    limit,
-    setSortDescriptor,
+    queryParams: { direction, limit, page, sort },
     handlePageClick,
     handleLimitChange,
+    handleDescriptorChange,
   } = useStudentsTableState();
 
   const pageCount = Math.ceil(totalCount / limit);
@@ -70,6 +69,7 @@ const StundentsTable = () => {
           nextLabel={<ChevronRight height={30} width={18} />}
           onPageChange={handlePageClick}
           activeClassName="font-black"
+          forcePage={page - 1}
           pageCount={pageCount}
           pageRangeDisplayed={pageRangeDisplayed}
           marginPagesDisplayed={marginPagesDisplayed}
@@ -78,8 +78,11 @@ const StundentsTable = () => {
         />
       </Flex>
       <TableView
-        onSortChange={setSortDescriptor}
-        sortDescriptor={sortDescriptor}
+        onSortChange={handleDescriptorChange}
+        sortDescriptor={{
+          column: sort,
+          direction: direction,
+        }}
         aria-label="Student table"
         renderEmptyState={() => <Text>No students</Text>}
       >

@@ -1,27 +1,14 @@
-import { allStudentsKeys, editStudent } from "@/api/students";
+import { useEditStudentMutation } from "@/api/students/hooks";
 import { Student } from "@/api/students/types";
 import { AlertDialog, Slider, View } from "@adobe/react-spectrum";
-import { ToastQueue } from "@react-spectrum/toast";
 import { useState } from "react";
-import { useMutation, useQueryClient } from "react-query";
 
 type Props = Student;
 
 const EditStudentDialog = ({ id, progress: studentProgress }: Props) => {
-  const queryClient = useQueryClient();
   const [progress, setProgress] = useState(studentProgress);
 
-  const { mutate } = useMutation({
-    mutationFn: ({ id, progress }: { id: string; progress: number }) =>
-      editStudent({ id, progress }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: allStudentsKeys });
-      ToastQueue.positive("Edited");
-    },
-    onError: () => {
-      ToastQueue.negative("Error");
-    },
-  });
+  const { mutate } = useEditStudentMutation();
 
   const handleEdit = () => mutate({ id, progress });
 

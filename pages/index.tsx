@@ -3,7 +3,7 @@ import StundentsTable from "../components/StudentsTable";
 import { GetServerSideProps } from "next";
 import { QueryClient, dehydrate } from "react-query";
 import { getStudents, getStudentsListKeys } from "@/api/students";
-import { STUDENTS_PAGE_DEFAULT_LIMIT } from "@/constants/studentTable";
+import { studentsTableBaseQuery } from "@/constants/studentTable";
 
 export default function Home() {
   return (
@@ -18,16 +18,9 @@ export default function Home() {
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const queryClient = new QueryClient();
 
-  const baseQueryParam = {
-    page: 1,
-    sort: "",
-    direction: "",
-    limit: STUDENTS_PAGE_DEFAULT_LIMIT,
-  };
-
   await queryClient.prefetchQuery(
-    getStudentsListKeys({ ...baseQueryParam }),
-    () => getStudents(baseQueryParam)
+    getStudentsListKeys(studentsTableBaseQuery),
+    () => getStudents(studentsTableBaseQuery)
   );
 
   return {
