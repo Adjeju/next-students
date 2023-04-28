@@ -1,0 +1,1 @@
+export const STUDENTS_PAGE_DEFAULT_LIMIT = 10;
