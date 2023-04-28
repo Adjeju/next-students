@@ -12,7 +12,5 @@ export default async function handler(
 
   studentsDB[idx].progress = progress;
 
-  await fs.writeFile("public/data.json", JSON.stringify(studentsDB));
-
   res.status(200).json({ result: `success` });
 }
