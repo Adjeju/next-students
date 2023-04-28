@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import data from "../../../public/data.json";
 import { SortDirection } from "@react-types/shared";
 import { Student } from "@/api/students/types";
+import { studentsDB } from "./inMemoryDB";
 
 interface FetchStudentsRequest extends NextApiRequest {
   query: {
@@ -17,10 +17,10 @@ export default async function handler(
   res: NextApiResponse<{ students: Student[]; totalCount: number }>
 ) {
   const { limit = 15, page = 1, sort, direction } = req.query;
-  const totalCount = data.length;
+  const totalCount = studentsDB.length;
   const prevDataNum = (+page - 1) * +limit;
 
-  const copy = [...data];
+  const copy = [...studentsDB];
 
   if (sort && direction) {
     copy.sort((a, b) => {

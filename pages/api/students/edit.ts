@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import data from "../../../public/data.json";
 import fs from "node:fs/promises";
+import { studentsDB } from "./inMemoryDB";
 
 export default async function handler(
   req: NextApiRequest,
@@ -8,12 +8,11 @@ export default async function handler(
 ) {
   const { progress, id } = JSON.parse(req.body);
 
-  const idx = data.findIndex((s) => s.id === id);
+  const idx = studentsDB.findIndex((s) => s.id === id);
 
-  const copy = [...data];
-  copy[idx].progress = progress;
+  studentsDB[idx].progress = progress;
 
-  await fs.writeFile("public/data.json", JSON.stringify(copy));
+  await fs.writeFile("public/data.json", JSON.stringify(studentsDB));
 
   res.status(200).json({ result: `success` });
 }
