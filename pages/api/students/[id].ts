@@ -6,20 +6,15 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method === "PUT") {
-    const { id } = req.query;
-    const { progress } = JSON.parse(req.body);
+  const { id } = req.query;
+  const { progress } = JSON.parse(req.body);
 
-    const idx = data.findIndex((s) => s.id === id);
+  const idx = data.findIndex((s) => s.id === id);
 
-    const copy = [...data];
-    copy[idx].progress = progress;
+  const copy = [...data];
+  copy[idx].progress = progress;
 
-    await fs.writeFile("public/data.json", JSON.stringify(copy));
+  await fs.writeFile("public/data.json", JSON.stringify(copy));
 
-    res.status(200).json({ result: `success` });
-  }
-  if (req.method === "GET") {
-    res.status(200).json({ result: `get` });
-  }
+  res.status(200).json({ result: `success` });
 }
