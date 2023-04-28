@@ -28,7 +28,7 @@ export const getStudents = async ({
   direction?: string;
 }) => {
   const resp = await fetch(
-    `${process.env["HOST"]}/students?limit=${limit}&page=${page}&sort=${
+    `${process.env["HOST"]}/api/students?limit=${limit}&page=${page}&sort=${
       sort ?? ""
     }&direction=${direction ?? ""}`
   );
@@ -43,7 +43,7 @@ export const editStudent = async ({
   id: string;
   progress: number;
 }) => {
-  const resp = await fetch(`${process.env["HOST"]}/students/${id}`, {
+  const resp = await fetch(`${process.env["HOST"]}/api/students/${id}`, {
     method: "PUT",
     body: JSON.stringify({ progress }),
   });
