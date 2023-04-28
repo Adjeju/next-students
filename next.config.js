@@ -53,14 +53,6 @@ const nextConfig = {
     "@spectrum-icons/ui",
     "@spectrum-icons/workflow",
   ],
-  async rewrites() {
-    return [
-      {
-        source: "/api/:path*",
-        destination: "https://next-students.vercel.app/:path*",
-      },
-    ];
-  },
 };
 
 module.exports = nextConfig;
