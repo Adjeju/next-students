@@ -19,4 +19,7 @@ export default async function handler(
 
     res.status(200).json({ result: `success` });
   }
+  if (req.method === "GET") {
+    res.status(200).json({ result: `get` });
+  }
 }
