@@ -43,9 +43,9 @@ export const editStudent = async ({
   id: string;
   progress: number;
 }) => {
-  const resp = await fetch(`/api/students/${id}`, {
+  const resp = await fetch(`/api/students/edit`, {
     method: "PUT",
-    body: JSON.stringify({ progress }),
+    body: JSON.stringify({ progress, id }),
   });
 
   return resp.json();
