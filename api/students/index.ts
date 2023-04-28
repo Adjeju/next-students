@@ -46,9 +46,9 @@ export const editStudent = async ({
   progress: number;
 }) => {
   const resp = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/students/${id}/edit`,
+    `${process.env.NEXT_PUBLIC_API_URL}/students/${id}`,
     {
-      method: "POST",
+      method: "PUT",
       body: JSON.stringify({ progress }),
     }
   );

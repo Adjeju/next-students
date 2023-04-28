@@ -1,12 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import data from "../../../../public/data.json";
+import data from "../../../public/data.json";
 import fs from "node:fs/promises";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method === "POST") {
+  if (req.method === "PUT") {
     const { id } = req.query;
     const { progress } = JSON.parse(req.body);
 
