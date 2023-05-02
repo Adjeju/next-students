@@ -27,12 +27,11 @@ export const getStudents = async ({
   sort?: string;
   direction?: string;
 }) => {
-  console.log(process.env.NEXT_PUBLIC_API_URL);
-
   const resp = await fetch(
-    `${
-      process.env.NEXT_PUBLIC_API_URL
-    }/api/students?limit=${limit}&page=${page}&sort=${sort ?? ""}&direction=${
+    `${process.env.NEXT_PUBLIC_API_URL?.replace(
+      "/VERCEL_URL",
+      ""
+    )}/api/students?limit=${limit}&page=${page}&sort=${sort ?? ""}&direction=${
       direction ?? ""
     }`
   );
@@ -48,7 +47,10 @@ export const editStudent = async ({
   progress: number;
 }) => {
   const resp = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/students/edit`,
+    `${process.env.NEXT_PUBLIC_API_URL?.replace(
+      "/VERCEL_URL",
+      ""
+    )}/api/students/edit`,
     {
       method: "PUT",
       body: JSON.stringify({ progress, id }),
