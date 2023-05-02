@@ -27,8 +27,12 @@ export const getStudents = async ({
   sort?: string;
   direction?: string;
 }) => {
+  console.log(process.env.NEXT_PUBLIC_API_URL);
+
   const resp = await fetch(
-    `/api/students?limit=${limit}&page=${page}&sort=${sort ?? ""}&direction=${
+    `${
+      process.env.NEXT_PUBLIC_API_URL
+    }/api/students?limit=${limit}&page=${page}&sort=${sort ?? ""}&direction=${
       direction ?? ""
     }`
   );
@@ -43,10 +47,13 @@ export const editStudent = async ({
   id: string;
   progress: number;
 }) => {
-  const resp = await fetch(`/api/students/edit`, {
-    method: "PUT",
-    body: JSON.stringify({ progress, id }),
-  });
+  const resp = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/students/edit`,
+    {
+      method: "PUT",
+      body: JSON.stringify({ progress, id }),
+    }
+  );
 
   return resp.json();
 };
